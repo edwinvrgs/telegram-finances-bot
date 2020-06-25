@@ -45,5 +45,9 @@ func main() {
 		b.Send(m.Sender, "Hola madre, la comida de hoy estaba rica")
 	})
 
+	b.Handle("/david", func(m *tb.Message) {
+		b.Send(m.Sender, "Hola Davidson, te saluda el primer bot de Edwin!")
+	})
+
 	b.Start()
 }
