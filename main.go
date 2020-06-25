@@ -33,5 +33,17 @@ func main() {
 		b.Send(m.Sender, "Hi!")
 	})
 
+	b.Handle("/anny", func(m *tb.Message) {
+		b.Send(m.Sender, "Hola mi amor. Te amo mucho")
+	})
+
+	b.Handle("/edgar", func(m *tb.Message) {
+		b.Send(m.Sender, "Hola, no eres el lider de pelotón")
+	})
+
+	b.Handle("/dilia", func(m *tb.Message) {
+		b.Send(m.Sender, "Hola madre, la comida de hoy estaba rica")
+	})
+
 	b.Start()
 }
