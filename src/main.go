@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -19,8 +20,6 @@ type webhookReqBody struct {
 		} `json:"chat"`
 	} `json:"message"`
 }
-
-API_KEY := "1103034915:AAEr9-R6t9ZCgGToLRQn66hsnMwnAN7FCMs"
 
 // This handler is called everytime telegram sends us a webhook event
 func Handler(res http.ResponseWriter, req *http.Request) {
@@ -73,7 +72,7 @@ func sayPolo(chatID int64) error {
 	}
 
 	// Send a post request with your token
-	res, err := http.Post("https://api.telegram.org/bot"+ API_KEY +"/sendMessage", "application/json", bytes.NewBuffer(reqBytes))
+	res, err := http.Post("https://api.telegram.org/bot"+os.Getenv("PORT")+"/sendMessage", "application/json", bytes.NewBuffer(reqBytes))
 	if err != nil {
 		return err
 	}
@@ -86,5 +85,5 @@ func sayPolo(chatID int64) error {
 
 // Finally, the webhook funtion starts our server on port 80
 func bot() {
-	http.ListenAndServe(":80", http.HandlerFunc(Handler))
+	http.ListenAndServe(os.Getenv("PORT"), http.HandlerFunc(Handler))
 }
